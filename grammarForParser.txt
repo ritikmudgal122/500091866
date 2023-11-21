@@ -1,0 +1,19 @@
+expression    :KEYWORD:VAR IDENTIFIER EQUALS expression
+
+comparisonExpr  :arithmeticExpr((Equal'=='|lessThan|greaterThan|lessThanEqual|greaterThanEqual)arithmeticExpr)*
+                :comparisonExpr((KEYWORD:and|KEYWORD:or)comparisonExpr)*
+
+                :not comparisionExpr
+arithmeticExpr  :term((PLUS|MINUS) term)*
+
+term   :factor((MUL|DIV) factor)*
+
+factor :(PLUS|MINUS) factor
+       :VarExpr
+
+VariableExpr        :INT|FLOAT|IDENTIFIER
+                    :LPAREN expression RPAREN
+
+ifExpression    :KEYWORD:IF expression KEYWORD: THEN expression
+                (KEYWORD:ELIF expression KEYWORD:THEN expression)*
+                (KEYWORD: ELSE expression)?
